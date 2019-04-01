@@ -1,28 +1,27 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React                                      from 'react'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import routes                                     from './config/routes'
+import Home                                       from './components/blog/Home'
+import Login                                      from './components/auth/Login'
+import Registration                               from './components/auth/Registration'
+import PostForm                                   from './components/blog/PostForm'
+import PostDetail                                 from './components/blog/PostDetail'
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+        <BrowserRouter>
+          <Switch>
+            <Route exact path={ routes.root } render={ () => <Redirect to={ routes.home }/> }/>
+            <Route exact path={ routes.home } component={ Home }/>
+            <Route exact path={ routes.login } component={ Login }/>
+            <Route exact path={ routes.register } component={ Registration }/>
+            <Route exact path={ routes.postForm } component={ PostForm }/>
+            <Route exact path={ routes.postDetail + ':id' } component={ PostDetail }/>
+          </Switch>
+        </BrowserRouter>
+    )
   }
 }
 
-export default App;
+export default App
